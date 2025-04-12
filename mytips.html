@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tips</title>
+
+</head>
+<body class="p-6 bg-gray-100">
+
+  <h2 class="text-2xl font-bold mb-4">My Tips</h2>
+
+  <div id="tipsContainer" class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"></div>
+
+  <script>
+    const container = document.getElementById("tipsContainer");
+    const tips = JSON.parse(localStorage.getItem("tips")) || [];
+
+    if (tips.length === 0) {
+      container.innerHTML = "<p>No tips added yet.</p>";
+    } else {
+      tips.forEach(tip => {
+        const card = document.createElement("div");
+        card.className = "bg-white p-4 rounded shadow";
+
+        card.innerHTML = `
+          <h3 class="font-bold">${tip.title}</h3>
+          <p class="text-gray-600">${tip.description}</p>
+          <span class="text-xs bg-gray-200 inline-block mt-2 px-2 py-1 rounded">${tip.category}</span>
+          ${tip.link ? `<a href="${tip.link}" class="block mt-2 text-blue-500 underline">Visit Link</a>` : ""}
+          <p class="text-xs text-gray-400 mt-2">Posted: ${tip.timestamp}</p>
+          <div class="flex gap-2 mt-4">
+            <button class="edit-btn bg-yellow-500 text-white px-3 py-2 rounded">Edit</button>
+            <button class="delete-btn bg-red-500 text-white px-3 py-2 rounded">Delete</button>
+          </div>
+        `;
+
+        card.querySelector(".edit-btn").addEventListener("click", () => {
+          localStorage.setItem("editTipId", tip.id); 
+          window.location.href = "edittip.html"; 
+        });
+
+        card.querySelector(".delete-btn").addEventListener("click", () => {
+          const updatedTips = tips.filter(t => t.id !== tip.id);
+          localStorage.setItem("tips", JSON.stringify(updatedTips));
+          alert("Tip deleted successfully!");
+          location.reload(); 
+        });
+
+        container.appendChild(card);
+      });
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</body>
+</html>
+

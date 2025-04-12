@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillShare</title>
+</head>
+<body class="bg-gray-100 font-sans">
+  <nav class="bg-white shadow-md px-6 py-4 flex items-center justify-between">
+    <div class="text-2xl font-bold text-blue-600">SkillShare</div>
+    <div class="sm:hidden">
+      <button id="menuToggle" class="text-3xl text-gray-700">&#9776;</button>
+    </div>
+    <ul id="navLinks" class="hidden sm:flex gap-4 text-sm font-medium">
+      <li>
+        <a href="login.html" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+          Login
+        </a>
+      </li>
+      <li>
+        <a href="sign.html" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+          Signup
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div id="mobileMenu" class="sm:hidden hidden px-6 py-2 bg-white shadow">
+    <ul class="space-y-2">
+      <li>
+        <a href="login.html" class="block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Login</a>
+      </li>
+      <li>
+        <a href="sign.html" class="block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Signup</a>
+      </li>
+    </ul>
+  </div>
+
+  <section class="max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Add a New Tip</h2>
+    
+    <form id="addTipForm" class="space-y-4">
+      <input 
+        type="text" 
+        id="title" 
+        placeholder="Title" 
+        class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+        required />
+      
+      <textarea 
+        id="description" 
+        placeholder="Description" 
+        rows="4"
+        class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+        required></textarea>
+      
+      <select 
+        id="category" 
+        class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+        required>
+        <option value="">Select Category</option>
+        <option value="Coding">Coding</option>
+        <option value="Design">Design</option>
+        <option value="Career">Career</option>
+        <option value="Life Hacks">Life Hacks</option>
+      </select>
+      
+      <div class="flex justify-between mt-6">
+        <a href="addtip.html" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition">Add Tip</a>
+        <a href="mytips.html" class="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600 transition">My Tips</a>
+      </div>
+    </form>
+  </section>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="index.js"></script>
+</body>
+</html>
