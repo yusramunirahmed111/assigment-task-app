@@ -1,43 +1,56 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.0/firebase-analytics.js";
-import { getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/11.3.0/firebase-auth.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+const menuToggle = document.getElementById("menuToggle");
+const mobileMenu = document.getElementById("mobileMenu");
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDhA7UvfqRB5Kgp_Eg5Hv3S9nrVeOxhE1g",
-    authDomain: "signup-5afce.firebaseapp.com",
-    projectId: "signup-5afce",
-    storageBucket: "signup-5afce.firebasestorage.app",
-    messagingSenderId: "573548830757",
-    appId: "1:573548830757:web:2eb08731ca57d3a21c5fcc",
-    measurementId: "G-MSDQHM08B4"
-  };
-
- // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const submit = document.getElementById("submit")
-submit.addEventListener("click",function (event) {
-  event.preventDefault()
-  const email = document.getElementById("email").value
-  const password = document.getElementById("password").value
-  const auth = getAuth();
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed up 
-      const user = userCredential.user;
-      alert ("login successfully......")
-      window.location.href="task.html"
-      // ...
-})
-.catch((error) => {
-  const errorCode = error.code;
-  const errorMessage = error.message;
-  alert(errorMessage)
-  // ..
+menuToggle.addEventListener("click", () => {
+  mobileMenu.classList.toggle("hidden");
 });
-})
+
+
+  document.getElementById("addTipForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const title = document.getElementById("title").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const category = document.getElementById("category").value;
+
+    if (!title || !description || !category) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    const card = document.createElement("div");
+    card.className = "p-4 bg-white shadow rounded border border-gray-200";
+
+    card.innerHTML = `
+      <h3 class="text-xl font-semibold text-blue-600">${title}</h3>
+      <p class="text-gray-700 mt-2">${description}</p>
+      <span class="inline-block mt-3 px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded">${category}</span>
+      <div class="mt-4 flex gap-2">
+        <button class="editBtn bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 transition">Edit</button>
+        <button class="deleteBtn bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition">Delete</button>
+      </div>
+    `;
+
+    document.getElementById("tipsContainer").appendChild(card);
+
+  
+    card.querySelector(".deleteBtn").addEventListener("click", function () {
+      card.remove();
+    });
+
+   
+    card.querySelector(".editBtn").addEventListener("click", function () {
+      document.getElementById("title").value = title;
+      document.getElementById("description").value = description;
+      document.getElementById("category").value = category;
+      card.remove();
+    });
+
+    this.reset();
+  });
+
+  // Mobile menu toggle
+  //document.getElementById("menuToggle").addEventListener("click", function () {
+   // document.getElementById("mobileMenu").classList.toggle("hidden");
+  //});
+
